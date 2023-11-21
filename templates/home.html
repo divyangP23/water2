@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Water Quality Prediction</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to top, #1c92d2, #f2fcfe);
+            height: 95.8vh;
+
+        }
+
+        h1 {
+            text-align: center;
+            color: #007bff;
+            height: 10%;
+        }
+
+        form {
+            width: 80%;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-gap: 15px;
+            height: 60%;
+
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input[type="text"] {
+            width: calc(100% - 20px);
+            padding: 8px;
+            border: none;
+            border-bottom: 2px solid rgb(83, 145, 216);
+            color: #007bff;
+            font-size: large;
+            outline: none;
+            background: none;
+        }
+
+        input[type="text"]:hover {
+            color: #0056b3;
+        }
+
+        input[type="text"]::placeholder {
+            text-align: center;
+        }
+
+        input[type="submit"] {
+            grid-column: 1 / -1;
+            padding: 1vh;
+            border-radius: 10px;
+            border: none;
+            background-color: #007bff;
+            color: white;
+            font-size: 3vh;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+
+        .result-section {
+            text-align: center;
+            margin: 20px;
+            padding: 10px;
+            border-radius: 5px;
+            background-color: none;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            height: 10%;
+        }
+
+        .result-section p {
+            font-size: 18px;
+            color: red;
+            place-items: center;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Water Quality Prediction</h1>
+    <form action="/predict" method="post">
+        <div>
+            <label for="pH">pH:</label>
+            <input type="text" id="pH" name="pH" oninput="this.value = this.value.replace(/[^0-9.]/g, '')" required>
+        </div>
+        <div><label for="Hardness">Hardness:</label>
+            <input type="text" id="Hardness" name="Hardness" oninput="this.value = this.value.replace(/[^0-9.]/g, '')"
+                required>
+        </div>
+        <div><label for="Total Dissolved Solids">Total Dissolved Solids:</label>
+            <input type="text" id="Total Dissolved Solids" name="Total Dissolved Solids" placeholder="(mg/l)"
+                oninput="this.value = this.value.replace(/[^0-9.]/g, '')" required>
+        </div>
+        <div><label for="Chloramines">Chloramines:</label>
+            <input type="text" id="Chloramines" name="Chloramines" placeholder="(ppm)"
+                oninput="this.value = this.value.replace(/[^0-9.]/g, '')" required>
+        </div>
+        <div><label for="Sulfate">Sulfate:</label>
+            <input type="text" id="Sulfate" name="Sulfate" placeholder="(mg/l)"
+                oninput="this.value = this.value.replace(/[^0-9.]/g, '')" required>
+        </div>
+        <div><label for="Conductivity">Conductivity:</label>
+            <input type="text" id="Conductivity" name="Conductivity" placeholder="(μS/cm)"
+                oninput="this.value = this.value.replace(/[^0-9.]/g, '')" required>
+        </div>
+        <div><label for="Organic Carbon">Organic Carbon:</label>
+            <input type="text" id="Organic Carbon" name="Organic Carbon" placeholder="(mg/l)"
+                oninput="this.value = this.value.replace(/[^0-9.]/g, '')" required>
+        </div>
+        <div><label for="Trihalomethanes">Trihalomethanes:</label>
+            <input type="text" id="Trihalomethanes" name="Trihalomethanes" placeholder="(ppm)"
+                oninput="this.value = this.value.replace(/[^0-9.]/g, '')" required>
+        </div>
+        <div><label for="Turbidity">Turbidity:</label>
+            <input type="text" id="Turbidity" name="Turbidity" placeholder="(NTU)"
+                oninput="this.value = this.value.replace(/[^0-9.]/g, '')" required>
+        </div>
+
+        <input type="submit" value="Predict">
+    </form>
+    <div class="result-section">
+        {% if prediction_result %}
+        <p>As per the characteristics of sample entered, the sample of water is <strong
+                style="color: blue; font-size: 110%;">{{ prediction_result }}</strong> for drinking purpose</p>
+        {% endif %}
+    </div>
+
+</body>
+
+</html>
